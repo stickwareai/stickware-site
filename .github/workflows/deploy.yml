@@ -1,0 +1,66 @@
+# Build the Astro site and publish it to GitHub Pages.
+#
+# MANUAL ONLY, on purpose. There is no push trigger: a deploy replaces what
+# stickware.ai serves, so it should be a decision someone makes, not a side
+# effect of merging. Run it from the Actions tab ("Run workflow"), or:
+#
+#   gh workflow run deploy.yml --ref main
+#
+# Two things must be true for it to actually serve anything:
+#   1. Pages source is set to "GitHub Actions" (Settings → Pages → Build and
+#      deployment → Source). On the older "Deploy from a branch" setting this
+#      workflow runs, builds, and publishes nothing.
+#   2. It runs on main — the github-pages environment's deployment-branch
+#      policy permits main only, so a dispatch from a branch stops at deploy.
+#
+# The design system is vendored under src/vendor/design-system/, so the build
+# needs nothing beyond this repository — no submodule, no extra token.
+name: Deploy to GitHub Pages
+
+on:
+  workflow_dispatch:
+
+# One in-flight deployment at a time; let a running one finish rather than
+# cancelling it mid-publish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # Before setup-node: its `cache: pnpm` shells out to `pnpm store path`,
+      # so pnpm has to be on PATH already. Version comes from package.json's
+      # `packageManager` field (pnpm 11 — needs action-setup v6 or newer).
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm build
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

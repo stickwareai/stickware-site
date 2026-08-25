@@ -1,0 +1,23 @@
+---
+import { Icon } from 'astro-icon/components';
+import Base from '../layouts/Base.astro';
+import { SITE } from '../site.ts';
+---
+
+<Base title="Page not found — Stickware" description={SITE.description}>
+  <section class="section contact">
+    <div class="wrap">
+      <div class="shead">
+        <span class="eyebrow"><Icon name="lucide:file-question" />404</span>
+        <h2>That page isn’t here.</h2>
+        <p>The link may be out of date, or the page may have moved. The front page is a good place to pick the thread back up.</p>
+      </div>
+      <div class="contact__cta">
+        <a class="btn btn--primary btn--lg" href="/">
+          <Icon name="lucide:arrow-left" />
+          Back to the front page
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

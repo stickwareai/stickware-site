@@ -1,0 +1,51 @@
+---
+import { Icon } from 'astro-icon/components';
+import Wordmark from './Wordmark.astro';
+import { NAV, CONTACT_EMAIL } from '../site.ts';
+---
+
+<header class="hdr">
+  <div class="wrap hdr__in">
+    <a class="hdr__brand" href="/" aria-label="Stickware — home">
+      <Wordmark />
+    </a>
+
+    <nav class="hdr__nav" aria-label="Main">
+      {NAV.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+
+    <div class="hdr__cta">
+      <button
+        class="iconbtn"
+        type="button"
+        data-theme-toggle
+        aria-label="Switch between light and dark"
+      >
+        <Icon class="i-light" name="lucide:moon" />
+        <Icon class="i-dark" name="lucide:sun" />
+      </button>
+      <a class="btn btn--primary btn--sm" href={`mailto:${CONTACT_EMAIL}`}>
+        Get in touch
+        <Icon name="lucide:arrow-right" />
+      </a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .hdr__brand { color: var(--text-strong); }
+</style>
+
+<script>
+  // Persist the reader's choice; the pre-paint script in Base.astro reads it back.
+  const root = document.documentElement;
+  document.querySelector('[data-theme-toggle]')?.addEventListener('click', () => {
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem('sw-theme', next);
+    } catch {
+      /* private mode — the choice just won't survive the page */
+    }
+  });
+</script>

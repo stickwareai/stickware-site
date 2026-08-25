@@ -1,0 +1,81 @@
+/* ============================================================
+   STICKWARE — TYPOGRAPHY TOKENS
+   ============================================================ */
+
+:root {
+  /* --- Families -------------------------------------------
+     The `* Variable` names come first: that's what the self-hosted
+     @font-face rules in fonts.css register (and what @fontsource-variable
+     installs downstream). The plain names follow so the CDN build
+     (fonts-cdn.css) and locally-installed copies still resolve. */
+  --font-display: 'Bitter Variable', Bitter, Georgia, 'Times New Roman', serif;
+  --font-body:    'Public Sans Variable', 'Public Sans', ui-sans-serif, system-ui,
+                  -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono:    'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* --- Weights -------------------------------------------- */
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+  --weight-heavy:    800;
+
+  /* --- Type scale (1.250 major-third, 16px base) ---------- */
+  --text-2xs: 0.6875rem;  /* 11px — legal fine print, tags    */
+  --text-xs:  0.75rem;    /* 12px — meta, captions            */
+  --text-sm:  0.875rem;   /* 14px — secondary UI text         */
+  --text-base:1rem;       /* 16px — body                      */
+  --text-md:  1.125rem;   /* 18px — lead body                 */
+  --text-lg:  1.375rem;   /* 22px — card titles               */
+  --text-xl:  1.75rem;    /* 28px — section titles            */
+  --text-2xl: 2.25rem;    /* 36px — page titles               */
+  --text-3xl: 3rem;       /* 48px — display                   */
+  --text-4xl: 3.75rem;    /* 60px — hero                      */
+  --text-5xl: 4.75rem;    /* 76px — marketing hero            */
+
+  /* --- Line heights --------------------------------------- */
+  --leading-tight:   1.1;
+  --leading-snug:    1.25;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.65;
+
+  /* --- Letter spacing ------------------------------------- */
+  --tracking-tight:  -0.02em;
+  --tracking-snug:   -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide:   0.02em;
+  --tracking-caps:   0.08em;  /* eyebrows / small-caps labels */
+
+  /* --- Semantic roles ------------------------------------- */
+  --font-eyebrow: var(--weight-semibold) var(--text-xs)/1 var(--font-mono);
+}
+
+/* ------------------------------------------------------------
+   Optional utility classes (consumers may use or ignore)
+   ------------------------------------------------------------ */
+.ls-display {
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-strong);
+}
+.ls-eyebrow {
+  font-family: var(--font-mono);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--text-brand);
+}
+.ls-body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--text-body);
+}
+.ls-mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: 0;
+}

@@ -1,0 +1,140 @@
+---
+import { Icon } from 'astro-icon/components';
+import Base from '../layouts/Base.astro';
+import { SITE, PRODUCTS, KEY_POINTS, AT_A_GLANCE, CONTACT_EMAIL } from '../site.ts';
+import keyDeviceUrl from '../vendor/design-system/assets/key-device.svg?url';
+---
+
+<Base title={SITE.title} description={SITE.description}>
+  <!-- ── Hero ────────────────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div>
+        <span class="eyebrow"><Icon name="lucide:shield-check" />On-prem legal AI</span>
+        <h1>Counsel that never leaves the <em>building</em>.</h1>
+        <p class="lead">
+          Stickware builds AI for law firms that runs on your own premises. The model sits on a
+          sealed device inside your network, so privileged work stays privileged.
+        </p>
+        <div class="hero__cta">
+          <a class="btn btn--primary btn--lg" href={`mailto:${CONTACT_EMAIL}`}>
+            Get in touch
+            <Icon name="lucide:arrow-right" />
+          </a>
+          <a class="btn btn--secondary btn--lg" href="#what-we-make">
+            What we make
+          </a>
+        </div>
+        <p class="hero__note">
+          <Icon name="lucide:lock" />
+          Runs inside your network · Documents never transit a third party
+        </p>
+      </div>
+
+      <div class="spec">
+        <p class="spec__hd">
+          <Icon name="lucide:file-text" />
+          Deployment at a glance
+        </p>
+        <dl class="spec__rows">
+          {
+            AT_A_GLANCE.map((row) => (
+              <div class="spec__row">
+                <dt>{row.label}</dt>
+                <dd>{row.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── What we make ────────────────────────────────────────────────── -->
+  <section class="section" id="what-we-make">
+    <div class="wrap">
+      <div class="shead">
+        <span class="eyebrow"><Icon name="lucide:layout-grid" />What we make</span>
+        <h2>Hardware and software for work that can’t be shared.</h2>
+        <p>
+          One idea, built three ways: the intelligence comes to your documents, rather than your
+          documents going out to the intelligence.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        {
+          PRODUCTS.map((product) => (
+            <article class="card">
+              <div class:list={['card__ic', product.tone === 'patina' && 'card__ic--patina']}>
+                <Icon name={product.icon} />
+              </div>
+              <h3>{product.name}</h3>
+              <p>{product.body}</p>
+              <p class="card__meta">{product.meta}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ── The Key ─────────────────────────────────────────────────────── -->
+  <section class="section section--ink" id="the-key">
+    <div class="wrap keysec">
+      <div class="keysec__art">
+        <img src={keyDeviceUrl} alt="The Stickware Key — a sealed on-premises device." width="300" />
+      </div>
+      <div>
+        <span class="eyebrow"><Icon name="lucide:cpu" />The hardware</span>
+        <h2>The whole model, on one device.</h2>
+        <p>
+          The Stickware Key is a sealed appliance that holds a state-of-the-art legal model. Plug it
+          in, and the firm has its own private counsel — no cloud, no exposure, no exceptions.
+        </p>
+
+        <div class="keylist">
+          {
+            KEY_POINTS.map((point) => (
+              <div class="keyli">
+                <span class="keyli__ic">
+                  <Icon name={point.icon} />
+                </span>
+                <div>
+                  <b>{point.title}</b>
+                  <span>{point.body}</span>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+
+        <a class="btn btn--secondary btn--lg" href={`mailto:${CONTACT_EMAIL}`}>
+          Ask us how it would fit
+          <Icon name="lucide:arrow-right" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Contact ─────────────────────────────────────────────────────── -->
+  <section class="section contact" id="contact">
+    <div class="wrap">
+      <div class="shead">
+        <span class="eyebrow"><Icon name="lucide:mail" />Get in touch</span>
+        <h2>Tell us about your practice.</h2>
+        <p>
+          We’ll walk you through how Stickware would sit inside your firm and what it takes to run
+          it. Write to us and a person will answer.
+        </p>
+      </div>
+      <div class="contact__cta">
+        <a class="btn btn--primary btn--lg" href={`mailto:${CONTACT_EMAIL}`}>
+          <Icon name="lucide:mail" />
+          {CONTACT_EMAIL}
+        </a>
+      </div>
+      <p class="contact__note">We read every message. No mailing list, no sales sequence.</p>
+    </div>
+  </section>
+</Base>

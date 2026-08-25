@@ -1,0 +1,7 @@
+# pnpm 11 reads project settings from here (not the package.json "pnpm" field).
+# esbuild and sharp have postinstall scripts pnpm blocks by default; both are
+# first-party Astro deps (esbuild = the bundler, sharp = image processing), so
+# allow them to build. Without this, `astro build` can't find their binaries.
+allowBuilds:
+  esbuild: true
+  sharp: true

@@ -1,0 +1,30 @@
+/*
+ * tokens.css — the design-token layer.
+ *
+ * Everything below the site's own styles: the Stickware design system's tokens,
+ * verbatim, plus the fonts they name. No rules of our own live here — see
+ * site.css for those.
+ *
+ * The token files are vendored under src/vendor/design-system/ (mirrored by
+ * `pnpm sync:ds`). Fonts are the @fontsource packages the design system
+ * self-hosts upstream, so this site ships the same subsets as the HQ docs site
+ * and the sticklab dashboard. tokens/fonts.css is deliberately NOT vendored —
+ * its @font-face paths are relative to the design-system checkout.
+ *
+ * Light is the default theme; <html data-theme="dark"> flips it. See the
+ * [data-theme="dark"] blocks at the end of colors.css and elevation.css.
+ */
+
+/* Public Sans — UI & body. Bitter — display; italic carries the hero accent. */
+@import '@fontsource-variable/public-sans/wght.css';
+@import '@fontsource-variable/bitter/wght.css';
+@import '@fontsource-variable/bitter/wght-italic.css';
+/* IBM Plex Mono — meta, eyebrows, IDs. No variable build; latin, 400/500/600. */
+@import '@fontsource/ibm-plex-mono/latin-400.css';
+@import '@fontsource/ibm-plex-mono/latin-500.css';
+@import '@fontsource/ibm-plex-mono/latin-600.css';
+
+@import '../vendor/design-system/tokens/colors.css';
+@import '../vendor/design-system/tokens/typography.css';
+@import '../vendor/design-system/tokens/spacing.css';
+@import '../vendor/design-system/tokens/elevation.css';

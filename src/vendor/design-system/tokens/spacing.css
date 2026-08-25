@@ -1,0 +1,59 @@
+/* ============================================================
+   STICKWARE — SPACING & SIZING TOKENS
+   4px base grid. Restrained, document-like rhythm.
+   ============================================================ */
+
+:root {
+  --space-0:  0;
+  --space-1:  0.25rem;  /* 4px  */
+  --space-2:  0.5rem;   /* 8px  */
+  --space-3:  0.75rem;  /* 12px */
+  --space-4:  1rem;     /* 16px */
+  --space-5:  1.25rem;  /* 20px */
+  --space-6:  1.5rem;   /* 24px */
+  --space-8:  2rem;     /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+  --space-32: 8rem;     /* 128px */
+
+  /* --- Container widths ----------------------------------- */
+  --container-prose: 68ch;   /* legal reading measure        */
+  --container-narrow: 720px;
+  --container:        1080px;
+  --container-wide:   1280px;
+
+  /* --- Width & measure -------------------------------------
+     Spacing answers *how far apart*; width answers *how wide*. Same
+     shape as the spacing scale: name the ROLE, not the number. Pick
+     the token whose name matches what the element IS, and the number
+     stays single-sourced. (`--container-prose` is the long-form legal
+     reading measure; `--measure` is the denser technical one.) */
+  --measure:        52rem;  /* a page intro / prose column, ~85 chars */
+  --measure-tight:  40rem;  /* helper or caption text under a control */
+
+  /* Form inputs, by what the field HOLDS — not by pixel guesswork. */
+  --field-xs:  5rem;   /* a count, a limit, a threshold             */
+  --field-sm:  8rem;   /* a short token — a family, a status        */
+  --field-md: 12rem;   /* a name — a slug, a model, a collection    */
+  --field-lg: 18rem;   /* an id, or a comma-separated tag list      */
+  --field-xl: 26rem;   /* a PII value, a free-text phrase           */
+
+  --panel-max: 88rem;  /* the widest a centred page column grows    */
+
+  /* --- Radii: squared old-school, lightly softened -------- */
+  --radius-none: 0;
+  --radius-xs:  2px;
+  --radius-sm:  4px;
+  --radius-md:  6px;   /* default control radius             */
+  --radius-lg:  10px;  /* cards / panels                     */
+  --radius-xl:  16px;
+  --radius-pill: 999px; /* tags / avatars only               */
+
+  /* --- Control heights ------------------------------------ */
+  --control-sm: 32px;
+  --control-md: 40px;
+  --control-lg: 48px;
+}

@@ -1,0 +1,36 @@
+---
+import Wordmark from './Wordmark.astro';
+import { SITE, NAV, CONTACT_EMAIL } from '../site.ts';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr__grid">
+      <div class="ftr__brand">
+        <Wordmark />
+        <p>{SITE.tagline}</p>
+      </div>
+
+      <nav class="ftr__col" aria-labelledby="ftr-site">
+        <h2 id="ftr-site">Site</h2>
+        {NAV.map((item) => <a href={item.href}>{item.label}</a>)}
+      </nav>
+
+      <div class="ftr__col">
+        <h2>Get in touch</h2>
+        <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+      </div>
+    </div>
+
+    <div class="ftr__base">
+      <span>© {year} {SITE.name}</span>
+      <span>stickware.ai</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .ftr__brand :global(.wordmark) { height: 28px; color: var(--warm-50); margin-bottom: var(--space-4); }
+</style>

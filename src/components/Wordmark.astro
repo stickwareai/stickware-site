@@ -1,0 +1,23 @@
+---
+/**
+ * The Stickware wordmark lockup, inlined so it can take the surrounding text
+ * colour. The vendored file is monochrome ink; `fill: currentColor` in site.css
+ * lets one file serve parchment-on-ink and ink-on-parchment alike.
+ */
+import wordmark from '../vendor/design-system/assets/logo-wordmark.svg?raw';
+
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<span class:list={['wordmark', className]} set:html={wordmark} />
+
+<style>
+  /* Consumers set the height; the mark scales to it. */
+  .wordmark { display: inline-flex; height: 26px; }
+  .wordmark :global(svg) { height: 100%; width: auto; display: block; }
+  /* CSS beats the presentation attribute on the <g>, so the mark inherits. */
+  .wordmark :global(svg g) { fill: currentColor; }
+</style>

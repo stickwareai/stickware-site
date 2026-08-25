@@ -1,0 +1,493 @@
+/*
+ * site.css — this site's own styles: layout, sections, and the handful of
+ * components the page needs.
+ *
+ * Every colour, radius, shadow, and type value comes from the design-system
+ * tokens (see tokens.css). Nothing here hard-codes a hex value, and widths are
+ * named by role (--container, --measure) rather than typed as pixels.
+ *
+ * Both themes are first-class. Sections that sit on parchment build from the
+ * semantic aliases, so dark works for free; the two deliberately dark bands
+ * (--section--ink, the footer) use literal ink values, which don't flip — on
+ * dark they read one rung above the page, which is how elevation works there.
+ */
+
+/* ── Base ──────────────────────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  /* The header is sticky; anchors need to clear it. */
+  scroll-padding-top: calc(var(--header-h) + var(--space-6));
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  /* Keep the ink footer at the bottom of short pages (the 404). */
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-page);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+main { flex: 1; }
+a { color: inherit; text-decoration: none; }
+img, svg { max-width: 100%; }
+:focus-visible { outline: none; box-shadow: var(--ring); border-radius: var(--radius-sm); }
+
+:root { --header-h: 66px; }
+
+/* ── Layout ────────────────────────────────────────────────────────────── */
+
+.wrap {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+}
+
+.section { padding-block: var(--space-24); }
+.section--ink {
+  background: var(--surface-ink);
+  color: var(--warm-300);
+  border-block: 1px solid var(--border-ink);
+}
+
+/* Section head: eyebrow, title, one line of lead. Centred by default. */
+.shead {
+  max-width: var(--measure);
+  margin: 0 auto var(--space-12);
+  text-align: center;
+}
+.shead h2 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-2xl);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-strong);
+  margin: 0 0 var(--space-4);
+  text-wrap: balance;
+}
+.shead p {
+  font-size: var(--text-md);
+  color: var(--text-muted);
+  margin: 0 auto;
+  max-width: var(--measure-tight);
+  text-wrap: pretty;
+}
+.section--ink .shead h2 { color: var(--warm-50); }
+.section--ink .shead p { color: var(--warm-300); }
+
+/* Eyebrow — the one place ALL-CAPS is allowed. Mono, tracked, brass. */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--text-brand);
+  background: var(--brand-subtle);
+  border: 1px solid var(--brass-200);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-pill);
+  margin: 0 0 var(--space-5);
+  line-height: 1;
+}
+.eyebrow svg { width: 14px; height: 14px; }
+[data-theme='dark'] .eyebrow { border-color: var(--brass-800); }
+.section--ink .eyebrow,
+.ftr .eyebrow {
+  background: var(--warm-800);
+  border-color: var(--warm-700);
+  color: var(--brass-300);
+}
+
+/* ── Button ────────────────────────────────────────────────────────────────
+   Ported from the design system's Button primitive (components/core/Button.jsx)
+   as plain CSS — this site has no React runtime. Brass primary, card-on-hairline
+   secondary, ghost. Squared-soft radius, letterpress press. */
+
+.btn {
+  --_h: var(--control-md);
+  --_px: var(--space-5);
+  --_fs: var(--text-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: var(--_h);
+  padding-inline: var(--_px);
+  font-family: var(--font-body);
+  font-size: var(--_fs);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background var(--duration) var(--ease-out),
+    border-color var(--duration) var(--ease-out),
+    box-shadow var(--duration) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.btn svg { width: 1.15em; height: 1.15em; flex: none; }
+.btn--sm { --_h: var(--control-sm); --_px: var(--space-3); --_fs: var(--text-xs); }
+.btn--lg { --_h: var(--control-lg); --_px: var(--space-6); --_fs: var(--text-base); }
+
+.btn--primary {
+  background: var(--brand);
+  color: var(--text-on-brand);
+  box-shadow: var(--shadow-xs), inset 0 1px 0 rgba(255, 253, 248, 0.18);
+}
+.btn--primary:hover { background: var(--brand-hover); }
+.btn--primary:active { background: var(--brand-active); transform: translateY(0.5px); }
+
+.btn--secondary {
+  background: var(--surface-card);
+  color: var(--text-strong);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-xs);
+}
+.btn--secondary:hover { background: var(--surface-raised); border-color: var(--warm-400); }
+.btn--secondary:active { background: var(--surface-sunken); transform: translateY(0.5px); }
+
+/* On ink, "secondary" reads as an outlined parchment control. */
+.section--ink .btn--secondary,
+.ftr .btn--secondary {
+  background: transparent;
+  color: var(--warm-50);
+  border-color: var(--warm-700);
+}
+.section--ink .btn--secondary:hover,
+.ftr .btn--secondary:hover { background: var(--warm-800); border-color: var(--warm-600); }
+
+/* ── Header ────────────────────────────────────────────────────────────── */
+
+.hdr {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--surface-page) 85%, transparent);
+  backdrop-filter: saturate(1.1) blur(10px);
+  border-bottom: 1px solid var(--border-hairline);
+}
+.hdr__in { display: flex; align-items: center; gap: var(--space-6); height: var(--header-h); }
+.hdr__brand { display: flex; align-items: center; flex: none; }
+.hdr__brand img { height: 26px; width: auto; display: block; }
+/* One wordmark file per theme — the mark is ink on parchment, parchment on ink. */
+.hdr__brand .on-dark, [data-theme='dark'] .hdr__brand .on-light { display: none; }
+[data-theme='dark'] .hdr__brand .on-dark { display: block; }
+
+.hdr__nav { display: flex; gap: var(--space-6); margin-left: var(--space-4); }
+.hdr__nav a {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-body);
+  transition: color var(--duration) var(--ease-out);
+}
+.hdr__nav a:hover { color: var(--text-brand); }
+.hdr__cta { margin-left: auto; display: flex; align-items: center; gap: var(--space-3); }
+
+/* Chrome control — neutral on purpose: brass owns actions, not the furniture. */
+.iconbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--control-sm);
+  height: var(--control-sm);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition:
+    background var(--duration) var(--ease-out),
+    color var(--duration) var(--ease-out);
+}
+.iconbtn:hover { background: var(--surface-raised); color: var(--text-strong); border-color: var(--border-hairline); }
+.iconbtn svg { width: 17px; height: 17px; }
+/* The toggle shows the theme you'd switch TO. */
+.iconbtn .i-dark { display: none; }
+[data-theme='dark'] .iconbtn .i-dark { display: block; }
+[data-theme='dark'] .iconbtn .i-light { display: none; }
+
+/* ── Hero ──────────────────────────────────────────────────────────────── */
+
+.hero { padding-block: var(--space-24) var(--space-16); position: relative; overflow: hidden; }
+.hero__grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: var(--space-12);
+  align-items: center;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-heavy);
+  font-size: clamp(2.5rem, 1.6rem + 3.2vw, var(--text-4xl));
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  color: var(--text-strong);
+  margin: 0 0 var(--space-5);
+  text-wrap: balance;
+}
+.hero h1 em { font-style: italic; color: var(--text-brand); }
+.hero .lead {
+  font-size: var(--text-md);
+  color: var(--text-body);
+  margin: 0 0 var(--space-8);
+  max-width: 32em;
+  text-wrap: pretty;
+}
+.hero__cta { display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: center; }
+.hero__note {
+  display: flex;
+  /* The note wraps to two lines on narrow screens; keep the lock on line one. */
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+.hero__note svg { width: 15px; height: 15px; color: var(--success); flex: none; margin-top: 1px; }
+
+/* Hero panel — a spec sheet, not a picture. Hairline-divided rows in the
+   design system's document register, wearing the brass key-line that marks a
+   hero card. The Key itself gets its one beauty shot in the ink band below. */
+.spec {
+  background: var(--surface-card);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--ring-brass), var(--shadow-lg);
+  overflow: hidden;
+}
+.spec__hd {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  padding: var(--space-4) var(--space-5);
+  background: var(--surface-raised);
+  border-bottom: 1px solid var(--border-hairline);
+  font-family: var(--font-mono);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--text-brand);
+}
+.spec__hd svg { width: 14px; height: 14px; }
+.spec__rows { margin: 0; }
+.spec__row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-4);
+  align-items: baseline;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--border-hairline);
+}
+.spec__row:last-child { border-bottom: 0; }
+.spec__row dt { font-size: var(--text-sm); color: var(--text-muted); }
+.spec__row dd {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-weight: var(--weight-medium);
+  font-size: var(--text-sm);
+  color: var(--text-strong);
+  text-align: right;
+}
+
+/* ── Card grid ─────────────────────────────────────────────────────────── */
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
+
+.card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-8) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  transition:
+    box-shadow var(--duration) var(--ease-out),
+    transform var(--duration) var(--ease-out);
+}
+.card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+.card__ic {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-md);
+  display: grid;
+  place-items: center;
+  background: var(--brand-subtle);
+  color: var(--text-brand);
+  margin-bottom: var(--space-5);
+  box-shadow: var(--shadow-engrave);
+}
+.card__ic--patina { background: var(--accent-subtle); color: var(--patina-700); }
+[data-theme='dark'] .card__ic--patina { color: var(--patina-200); }
+.card__ic svg { width: 22px; height: 22px; }
+.card h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-snug);
+  color: var(--text-strong);
+  margin: 0 0 var(--space-2);
+}
+.card p { font-size: var(--text-sm); color: var(--text-body); margin: 0; }
+.card__meta {
+  margin-top: auto;
+  padding-top: var(--space-5);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+/* ── The Key (ink band) ────────────────────────────────────────────────── */
+
+.keysec { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); align-items: center; }
+.keysec__art { position: relative; display: grid; place-items: center; }
+.keysec__art::before {
+  content: '';
+  position: absolute;
+  width: min(360px, 100%);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--brass-500) 30%, transparent) 0%,
+    transparent 68%
+  );
+}
+.keysec__art img {
+  position: relative;
+  width: min(300px, 84%);
+  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.5));
+}
+.keysec h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--warm-50);
+  margin: 0 0 var(--space-4);
+  text-wrap: balance;
+}
+.keysec > div > p { font-size: var(--text-md); color: var(--warm-300); margin: 0 0 var(--space-6); }
+
+.keylist { display: flex; flex-direction: column; gap: var(--space-4); margin: 0 0 var(--space-8); }
+.keyli { display: flex; gap: var(--space-3); align-items: flex-start; }
+.keyli__ic {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-sm);
+  background: var(--warm-800);
+  border: 1px solid var(--warm-700);
+  display: grid;
+  place-items: center;
+  flex: none;
+  color: var(--brass-300);
+}
+.keyli__ic svg { width: 15px; height: 15px; }
+.keyli b { color: var(--warm-50); font-size: var(--text-sm); font-weight: var(--weight-semibold); }
+.keyli span { color: var(--warm-400); font-size: var(--text-sm); display: block; line-height: var(--leading-normal); }
+
+/* ── Contact ───────────────────────────────────────────────────────────── */
+
+.contact { text-align: center; }
+.contact .shead { margin-bottom: var(--space-8); }
+.contact__cta { display: flex; gap: var(--space-3); justify-content: center; flex-wrap: wrap; }
+.contact__note {
+  margin-top: var(--space-6);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-faint);
+}
+
+/* ── Footer ────────────────────────────────────────────────────────────── */
+
+.ftr { background: var(--surface-ink); color: var(--warm-400); padding-block: var(--space-16) var(--space-8); }
+.ftr__grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: var(--space-8);
+  padding-bottom: var(--space-10);
+  border-bottom: 1px solid var(--warm-800);
+}
+.ftr__brand img { height: 28px; width: auto; display: block; margin-bottom: var(--space-4); }
+.ftr__grid p { font-size: var(--text-sm); color: var(--warm-400); max-width: 28em; margin: 0; }
+.ftr__col h2 {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--warm-500);
+  margin: 0 0 var(--space-4);
+}
+.ftr__col a {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--warm-300);
+  margin-bottom: var(--space-2);
+  transition: color var(--duration) var(--ease-out);
+}
+.ftr__col a:hover { color: var(--brass-300); }
+.ftr__base {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  padding-top: var(--space-6);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--warm-500);
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .hero__grid { grid-template-columns: 1fr; gap: var(--space-10); }
+  .keysec { grid-template-columns: 1fr; gap: var(--space-10); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .ftr__grid { grid-template-columns: 1fr 1fr; }
+  .section { padding-block: var(--space-16); }
+  .hero { padding-block: var(--space-16); }
+}
+
+@media (max-width: 720px) {
+  .hdr__nav { display: none; }
+  .grid-3 { grid-template-columns: 1fr; }
+  .ftr__grid { grid-template-columns: 1fr; gap: var(--space-6); }
+  .hero .lead { font-size: var(--text-base); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .card:hover { transform: none; }
+}

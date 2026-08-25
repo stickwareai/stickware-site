@@ -1,0 +1,224 @@
+/* ============================================================
+   STICKWARE — COLOR TOKENS
+   "Brass and its patina, on parchment, in ink."
+   Warm law-library materials + a cool digital accent.
+   ============================================================ */
+
+:root {
+  /* --- Warm neutral ramp: parchment → ink ------------------ */
+  --warm-50:  #faf6ee;  /* lightest parchment            */
+  --warm-75:  #f8f2e7;  /* panel / near-background        */
+  --warm-100: #f4ecdd;  /* page / app background         */
+  --warm-150: #ece0cd;
+  --warm-200: #e0d0b8;  /* hairline borders, dividers     */
+  --warm-300: #cbb597;
+  --warm-400: #ab9474;  /* muted text on dark             */
+  --warm-500: #8a7156;  /* secondary text                 */
+  --warm-600: #6a5440;  /* body text on parchment         */
+  --warm-700: #4d3b2c;
+  --warm-800: #342618;  /* dark surfaces                  */
+  --warm-900: #241a10;
+  --warm-950: #170f07;  /* ink — primary text             */
+
+  /* --- Brass (the brand) ---------------------------------- */
+  --brass-50:  #f8eede;
+  --brass-100: #f0dabb;
+  --brass-200: #e2bd86;
+  --brass-300: #d3a160;
+  --brass-400: #c08a45;
+  --brass-500: #a9743a;  /* brass — primary brand          */
+  --brass-600: #8c5d2f;
+  --brass-700: #6d4827;
+  --brass-800: #503523;
+  --brass-900: #38261a;
+
+  /* --- Patina (aged-brass teal — the digital accent) ------ */
+  --patina-50:  #e4efee;
+  --patina-100: #c4dedb;
+  --patina-200: #97c2bd;
+  --patina-300: #69a39d;
+  --patina-400: #44857f;
+  --patina-500: #2f6b66;  /* patina — interactive / links   */
+  --patina-600: #255652;
+  --patina-700: #1f4441;
+  --patina-800: #1a3533;
+  --patina-900: #142826;
+
+  /* --- Oxblood (deep accent / emphasis) ------------------- */
+  --oxblood-400: #b15140;
+  --oxblood-500: #983b2e;
+  --oxblood-600: #7c2f25;
+
+  /* --- Pure-ish surfaces ---------------------------------- */
+  --white: #fffdf8;       /* warm white — cards on parchment */
+  --black: #110b04;
+
+  /* --- Semantic status hues -------------------------------
+     The -300 steps are the light-on-ink variants the dark theme reads;
+     -500 is the on-parchment value, -700 the deepest.                */
+  --green-100: #d9e6d4;
+  --green-300: #7fb894;   /* success on ink                 */
+  --green-500: #3f6b4a;   /* success — muted forest         */
+  --green-700: #2a4a33;
+  --amber-100: #f5e7c4;
+  --amber-300: #d9a84e;   /* warning on ink                 */
+  --amber-500: #b9852f;   /* warning — amber                */
+  --amber-700: #845c1b;
+  --red-100:   #f2d8cf;
+  --red-300:   #c96a5b;   /* danger on ink                  */
+  --red-500:   #983b2e;   /* danger — oxblood               */
+  --red-700:   #6e271d;
+  --info-100:  #cfe1e3;
+  --info-500:  #2f6b66;   /* info — patina                  */
+
+  /* ============================================================
+     SEMANTIC ALIASES — use these in components, not raw ramps
+     ============================================================ */
+
+  /* Text */
+  --text-strong:   var(--warm-950);   /* headings, primary text */
+  --text-body:     var(--warm-700);   /* body copy              */
+  --text-muted:    var(--warm-500);   /* captions, meta         */
+  --text-faint:    var(--warm-400);   /* placeholders, hints    */
+  --text-on-brand: var(--warm-50);    /* text on brass          */
+  --text-on-dark:  var(--warm-100);   /* text on ink surfaces   */
+  --text-link:     var(--patina-600);
+  --text-brand:    var(--brass-600);
+
+  /* Surfaces */
+  --surface-page:    var(--warm-100);  /* app / page background  */
+  --surface-sunken:  var(--warm-150);  /* wells, code blocks     */
+  --surface-card:    var(--white);     /* raised cards, panels   */
+  --surface-raised:  var(--warm-50);   /* subtle raised tint     */
+  --surface-panel:   var(--warm-75);   /* inner panel / near-bg  */
+  --surface-ink:     var(--warm-900);  /* dark sidebars / footers*/
+  --surface-ink-2:   var(--warm-800);
+
+  /* "Sheet on desk" — the app-frame elevation model. The chrome (top
+     bar, side rails) sits on one recessed DESK tone; the content pane
+     is an elevated paper SHEET floating on it. Light: the sheet is the
+     brightest thing on the page. Dark: elevation reads as LIGHTER, so
+     the ladder inverts — desk (warm-950) < sheet (warm-900) < panel. */
+  --surface-desk:    var(--warm-150);
+  --surface-sheet:   var(--white);
+
+  /* Data-viz — categorical series, in order. Brass and patina alternate
+     so a two-series chart reads as the brand pair; 3 and 4 step down the
+     same two hues rather than introducing new ones. */
+  --chart-1: var(--brass-500);
+  --chart-2: var(--patina-500);
+  --chart-3: var(--brass-600);
+  --chart-4: var(--warm-400);
+  --chart-axis: var(--warm-400);
+  --chart-grid: rgba(138, 113, 86, 0.18);
+
+  /* Borders */
+  --border-hairline: var(--warm-200);  /* default 1px divider    */
+  --border-strong:   var(--warm-300);  /* emphasized border      */
+  --border-ink:      var(--warm-700);  /* on dark surfaces       */
+  --border-focus:    var(--patina-500);
+
+  /* Brand / interactive */
+  --brand:           var(--brass-500);
+  --brand-hover:     var(--brass-600);
+  --brand-active:    var(--brass-700);
+  --brand-subtle:    var(--brass-100);
+  --accent:          var(--patina-500);
+  --accent-hover:    var(--patina-600);
+  --accent-subtle:   var(--patina-100);
+
+  /* Status semantic */
+  --success:      var(--green-500);
+  --success-bg:   var(--green-100);
+  --warning:      var(--amber-500);
+  --warning-bg:   var(--amber-100);
+  --danger:       var(--red-500);
+  --danger-bg:    var(--red-100);
+  --info:         var(--info-500);
+  --info-bg:      var(--info-100);
+
+  /* Focus ring */
+  --ring: 0 0 0 3px color-mix(in srgb, var(--patina-500) 35%, transparent);
+}
+
+/* ============================================================
+   DARK THEME — the same ramp, read the other way
+   ============================================================
+   Ink is not a decorative section here; it's a first-class theme. The
+   semantic aliases above are the ONLY thing that changes — every raw
+   ramp value stays put, and the warm ladder is simply read top-down
+   (ink surfaces → parchment text) instead of bottom-up. Two rules hold
+   across the flip:
+     · elevation reads LIGHTER on ink (desk < sheet < panel), the
+       inverse of the paper model;
+     · brass still owns actions and active states, patina still owns
+       links and focus — both step 1–2 rungs lighter so they clear ink.
+
+   Opt-in, via an explicit attribute: `<html data-theme="dark">`. That
+   matches both consumers (the HQ site and the sticklab dashboard set
+   the attribute from a toggle). To follow the OS instead, mirror this
+   block under:
+     @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { … } }
+   ------------------------------------------------------------ */
+
+[data-theme="dark"] {
+  /* Text */
+  --text-strong:   var(--warm-50);    /* headings, primary text */
+  --text-body:     var(--warm-200);   /* body copy              */
+  --text-muted:    var(--warm-400);   /* captions, meta         */
+  --text-faint:    var(--warm-500);   /* placeholders, hints    */
+  --text-on-brand: var(--warm-50);    /* unchanged — parchment sits on brass in both themes */
+  --text-on-dark:  var(--warm-100);   /* unchanged — literal ink*/
+  --text-link:     var(--patina-300);
+  --text-brand:    var(--brass-400);  /* eyebrows, accent text  */
+
+  /* Surfaces — the ladder inverts: lighter == higher */
+  --surface-page:    var(--warm-950);  /* the ink "desk"         */
+  --surface-sunken:  var(--black);     /* wells, code blocks     */
+  --surface-card:    var(--warm-900);  /* raised cards, panels   */
+  --surface-raised:  var(--warm-800);  /* subtle raised tint     */
+  --surface-panel:   var(--warm-800);  /* inner panel            */
+  --surface-desk:    var(--warm-950);
+  --surface-sheet:   var(--warm-900);
+  /* --surface-ink / --surface-ink-2 are literal ink; they don't flip. */
+
+  /* Borders */
+  --border-hairline: var(--warm-800);  /* default 1px divider    */
+  --border-strong:   var(--warm-700);  /* emphasized border      */
+  --border-ink:      var(--warm-700);
+  --border-focus:    var(--patina-400);
+
+  /* Brand / interactive — the whole brass ladder shifts one rung lighter
+     so a filled brass control clears the ink, and keeps climbing as it
+     activates (light: 500 → 600 → 700; ink: 400 → 300 → 200). Parchment
+     still sits on top of it — --text-on-brand doesn't flip. */
+  --brand:           var(--brass-400);
+  --brand-hover:     var(--brass-300);
+  --brand-active:    var(--brass-200);
+  --brand-subtle:    var(--brass-900);
+  --accent:          var(--patina-400);
+  --accent-hover:    var(--patina-300);
+  --accent-subtle:   var(--patina-900);
+
+  /* Status semantic — light hues, translucent washes so they read on
+     any ink surface (a solid tint would fight the elevation ladder). */
+  --success:      var(--green-300);
+  --success-bg:   hsla(145, 30%, 55%, 0.14);
+  --warning:      var(--amber-300);
+  --warning-bg:   hsla(38, 50%, 55%, 0.13);
+  --danger:       var(--red-300);
+  --danger-bg:    hsla(8, 45%, 55%, 0.15);
+  --info:         var(--patina-300);
+  --info-bg:      hsla(176, 30%, 55%, 0.14);
+
+  /* Data-viz */
+  --chart-1: var(--brass-300);
+  --chart-2: var(--patina-300);
+  --chart-3: var(--brass-400);
+  --chart-4: var(--warm-500);
+  --chart-axis: var(--warm-500);
+  --chart-grid: rgba(171, 148, 116, 0.18);
+
+  /* Focus ring */
+  --ring: 0 0 0 3px color-mix(in srgb, var(--patina-400) 40%, transparent);
+}

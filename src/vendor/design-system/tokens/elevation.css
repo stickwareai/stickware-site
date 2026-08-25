@@ -1,0 +1,73 @@
+/* ============================================================
+   STICKWARE — ELEVATION: borders, shadows, focus
+   Warm-tinted, low, paper-like. Plus a letterpress inset for
+   the "engraved" old-school feel.
+   ============================================================ */
+
+:root {
+  /* --- Border widths -------------------------------------- */
+  --border-width: 1px;
+  --border-width-2: 2px;
+
+  /* --- Shadows: warm-tinted, soft, restrained ------------- */
+  --shadow-xs: 0 1px 2px rgba(35, 26, 16, 0.06);
+  --shadow-sm: 0 1px 3px rgba(35, 26, 16, 0.08),
+               0 1px 2px rgba(35, 26, 16, 0.04);
+  --shadow-md: 0 2px 6px rgba(35, 26, 16, 0.08),
+               0 4px 12px rgba(35, 26, 16, 0.06);
+  --shadow-lg: 0 8px 24px rgba(35, 26, 16, 0.10),
+               0 2px 6px rgba(35, 26, 16, 0.06);
+  --shadow-xl: 0 18px 48px rgba(23, 15, 7, 0.16),
+               0 6px 16px rgba(23, 15, 7, 0.08);
+
+  /* Letterpress / engraved inset (wells, pressed states) */
+  --shadow-inset: inset 0 1px 2px rgba(35, 26, 16, 0.10);
+  --shadow-engrave: inset 0 1px 0 rgba(255, 253, 248, 0.6),
+                    inset 0 -1px 1px rgba(35, 26, 16, 0.06);
+
+  /* Brass key-line — a hairline brand glow for hero cards */
+  --ring-brass: 0 0 0 1px rgba(169, 116, 58, 0.30);
+
+  /* Sheet edge — the wide, soft darkening that makes the content sheet
+     visibly float on the desk (see --surface-desk / --surface-sheet). */
+  --shadow-sheet: 0 1px 2px hsla(24, 20%, 30%, 0.06),
+                  0 0 2rem hsla(24, 25%, 30%, 0.10);
+
+  /* --- Focus ring (defined in colors.css as --ring) ------- */
+
+  /* --- Motion --------------------------------------------- */
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);   /* @kind other */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);    /* @kind other */
+  --duration-fast: 120ms;                           /* @kind other */
+  --duration: 200ms;                                /* @kind other */
+  --duration-slow: 320ms;                           /* @kind other */
+}
+
+/* ============================================================
+   DARK THEME — shadows on ink
+   ============================================================
+   Ink swallows a warm-grey shadow, so the dark ladder is a near-black
+   at much higher alpha. The letterpress inset inverts too: its top
+   highlight becomes a faint parchment sheen instead of a white one.
+   Motion, border widths, and the focus ring are theme-independent.
+   ------------------------------------------------------------ */
+
+[data-theme="dark"] {
+  --shadow-xs: 0 1px 2px hsla(22, 30%, 4%, 0.45);
+  --shadow-sm: 0 1px 2px hsla(22, 30%, 4%, 0.50);
+  --shadow-md: 0 2px 4px hsla(22, 30%, 4%, 0.40),
+               0 4px 12px hsla(22, 30%, 4%, 0.35);
+  --shadow-lg: 0 4px 8px hsla(22, 30%, 4%, 0.40),
+               0 12px 32px hsla(22, 30%, 4%, 0.50);
+  --shadow-xl: 0 18px 48px hsla(22, 40%, 2%, 0.60),
+               0 6px 16px hsla(22, 40%, 2%, 0.40);
+
+  --shadow-inset: inset 0 1px 2px hsla(22, 40%, 2%, 0.50);
+  --shadow-engrave: inset 0 1px 0 rgba(250, 246, 238, 0.06),
+                    inset 0 -1px 1px hsla(22, 40%, 2%, 0.40);
+
+  /* brass key-line steps up to brass-300 so it clears the ink */
+  --ring-brass: 0 0 0 1px rgba(211, 161, 96, 0.30);
+
+  --shadow-sheet: 0 0 1.75rem hsla(22, 40%, 2%, 0.55);
+}

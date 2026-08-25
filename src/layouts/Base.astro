@@ -1,0 +1,70 @@
+---
+/**
+ * The page shell: head, theme bootstrap, header, footer.
+ *
+ * Light is the default theme and dark is opt-in via <html data-theme>, matching
+ * the design system and its other consumers. The inline script below sets that
+ * attribute before first paint (stored choice first, OS preference otherwise),
+ * so there is no flash of the wrong theme.
+ */
+import '../styles/tokens.css';
+import '../styles/site.css';
+import faviconUrl from '../vendor/design-system/assets/favicon.svg?url';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+// Rendered from the brand assets against the site's own tokens — see README.
+const ogImage = new URL('/og.png', Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href={faviconUrl} type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Stickware" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script is:inline>
+      // Runs before paint — keep it small and dependency-free.
+      (() => {
+        try {
+          const stored = localStorage.getItem('sw-theme');
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.dataset.theme = stored ?? (prefersDark ? 'dark' : 'light');
+        } catch {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
+  </head>
+
+  <body>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
