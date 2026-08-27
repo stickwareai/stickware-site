@@ -1,1 +1,5 @@
 .cc-connect/
+node_modules/
+dist/
+.astro/
+.serena/
